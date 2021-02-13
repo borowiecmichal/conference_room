@@ -1,0 +1,10 @@
+{% extends 'confeence_room.html' %}
+{% block content %}
+    <form method="post">
+    {% csrf_token %}
+        <p>Room name: <input type="text" name="name"></p>
+        <p>Capacity: <input type="number" name="capacity"></p>
+        <p>Projector: <input type="checkbox" name="projector" value="projector"></p>
+        <p><input type="submit"></p>
+    </form>
+{% endblock %}

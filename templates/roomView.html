@@ -1,0 +1,8 @@
+{% extends 'confeence_room.html' %}
+{% block content %}
+    {% for room in rooms %}
+        {{ room.name }} {{ room.capacity }} {{ room.projector_availability }}
+    {% endfor %}
+{% endblock %}
+
+from models import Room

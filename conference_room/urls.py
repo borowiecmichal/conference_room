@@ -15,7 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from room_app import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', views.Home.as_view(), name='home'),
+    path('room/new', views.RoomView.as_view(), name='Room'),
+    path('room', views.RoomAdd.as_view(), name='newRoom'),
 ]
