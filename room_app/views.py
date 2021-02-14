@@ -1,9 +1,11 @@
+from datetime import datetime
+
 from django.shortcuts import render, redirect
 from django.views import View
 from django.http import HttpResponse
 
 import room_app
-from room_app.models import Room
+from room_app.models import Room, Reservation
 
 
 class Home(View):
@@ -71,7 +73,7 @@ class RoomModify(View):
         try:
             room_by_name = Room.objects.get(name=request.POST['name'])
             if room_by_name.id == room.id:
-                name_availability=True
+                name_availability = True
             else:
                 name_availability = False
         except room_app.models.Room.DoesNotExist:
@@ -96,6 +98,29 @@ class RoomModify(View):
         else:
             return render(request, 'editRoom.html', {'room': room, 'error': 'Wrong room name, try again'})
 
+        return redirect('Rooms')
+
+
+class RoomReserve(View):
+    def get(self, request, id):
+        room = Room.objects.get(pk=id)
+        return render(request, 'roomReserve.html', {'room': room})
+
+    def post(self, request, id):
+        room = Room.objects.get(pk=id)
+
+        date = request.POST['date']
+        datetime_object = datetime.strptime(date, '%Y-%m-%d').date()
+        # a=list(room.reservation_set.all())
+        a=[]
+        for elem in room.reservation_set.all():
+            a.append(elem.date)
+
+        if datetime_object in a or datetime_object < datetime.now().date():
+            return render(request, 'roomReserve.html', {'error': 'This date is unavailable'})
+
+        else:
+            Reservation.objects.create(comment=request.POST['comment'], date=datetime_object, room=room)
         return redirect('Rooms')
 
 
