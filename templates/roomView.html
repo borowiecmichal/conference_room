@@ -1,8 +1,35 @@
 {% extends 'confeence_room.html' %}
 {% block content %}
-    {% for room in rooms %}
-        {{ room.name }} {{ room.capacity }} {{ room.projector_availability }}
+    <table>
+    <tr>
+        <th style="text-align:center">Name</th>
+        <th style="text-align:center">Capacity</th>
+        <th style="text-align:center">Projector</th>
+        <th style="text-align:center">Available</th>
+        <th style="text-align:center"></th>
+    </tr>
+    {% for room in Rooms %}
+        <tr>
+            <td style="text-align:center"><a href="{% url 'RoomDetails' room.id %}">{{ room.name }}</a></td>
+            <td style="text-align:center">{{ room.capacity }}</td>
+            <td style="text-align:center">
+                {% if room.projector_availability == True %}
+                ✓
+                {% else %}
+                ✗
+                {% endif %}
+            </td>
+            <td>Avail/unAvail</td>
+            <td style="text-align:center">
+                <a href="{% url 'RoomModify' room.id %}">Modify</a>
+                <a href="{% url 'RoomDelete' room.id %}">Delete</a>
+                <a href="{% url 'RoomReserve' room.id %}">Reserve</a>
+            </td>
+        </tr>
     {% endfor %}
+
+    </table>
+
 {% endblock %}
 
 from models import Room

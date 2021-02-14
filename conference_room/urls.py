@@ -20,6 +20,10 @@ from room_app import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.Home.as_view(), name='home'),
-    path('room/new', views.RoomView.as_view(), name='Room'),
-    path('room', views.RoomAdd.as_view(), name='newRoom'),
+    path('rooms', views.RoomView.as_view(), name='Rooms'),
+    path('room/new', views.RoomAdd.as_view(), name='newRoom'),
+    path('room/<int:id>', views.RoomDetails.as_view(), name='RoomDetails'),
+    path('room/modify/<int:id>', views.RoomDetails.as_view(), name='RoomModify'),
+    path('room/delete/<int:id>', views.RoomDelete.as_view(), name='RoomDelete'),
+    path('room/reserve/<int:id>', views.RoomDetails.as_view(), name='RoomReserve'),
 ]
