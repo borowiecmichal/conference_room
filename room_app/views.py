@@ -16,7 +16,8 @@ class Home(View):
 class RoomView(View):
     def get(self, request):
         r = Room.objects.all()
-        return render(request, 'roomView.html', {'Rooms': r})
+        date_today = datetime.now().date()
+        return render(request, 'roomView.html', {'Rooms': r, 'date_today': date_today})
 
 
 class RoomAdd(View):
@@ -117,7 +118,7 @@ class RoomReserve(View):
             a.append(elem.date)
 
         if datetime_object in a or datetime_object < datetime.now().date():
-            return render(request, 'roomReserve.html', {'error': 'This date is unavailable'})
+            return render(request, 'roomReserve.html', {'error': 'This date is unavailable', 'room': room})
 
         else:
             Reservation.objects.create(comment=request.POST['comment'], date=datetime_object, room=room)

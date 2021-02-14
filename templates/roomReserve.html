@@ -7,4 +7,12 @@
         <p>Date: <input type="date" name="date"></p>
         <p><input type="submit"></p>
     </form>
+    <p>
+        Reservations:
+        <ul>
+        {% for res in room.reservation_set.all %}
+            <li>{{ res.date }}, {{ res.comment }}</li>
+        {% endfor %}
+        </ul>
+    </p>
 {% endblock %}

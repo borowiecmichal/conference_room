@@ -19,7 +19,14 @@
                 ✗
                 {% endif %}
             </td>
-            <td>Avail/unAvail</td>
+            <td style="text-align:center">
+                <!--{% if date_today in room.reservation_set.all.date %}-->
+                {% if date_today in room.reservation_set.values__==date %}
+                ✗
+                {% else %}
+                ✓
+                {% endif %}
+            </td>
             <td style="text-align:center">
                 <a href="{% url 'RoomModify' room.id %}">Modify</a>
                 <a href="{% url 'RoomDelete' room.id %}">Delete</a>
