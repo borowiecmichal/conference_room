@@ -125,4 +125,6 @@ class RoomReserve(View):
 
 
 class RoomDetails(View):
-    pass
+    def get(self, request, id):
+        room = Room.objects.get(pk=id)
+        return render(request, 'roomDetails.html', {'room':room})

@@ -1,0 +1,20 @@
+{% extends 'confeence_room.html' %}
+{% block content %}
+    <p>Name: {{ room.name }}</p>
+    <p>Capacity: {{ room.capacity }}</p>
+    <p>Projector: {% if room.projector_availability == True %}✓{% else %}✗{% endif %}</p>
+    <p>
+        Reservations:
+        <ul>
+        {% for res in room.reservation_set.all %}
+            <li>{{ res.date }}, {{ res.comment }}</li>
+        {% endfor %}
+        </ul>
+    </p>
+    <p>
+        <a href="{% url 'RoomModify' room.id %}">Modify</a>
+        <a href="{% url 'RoomDelete' room.id %}">Delete</a>
+        <a href="{% url 'RoomReserve' room.id %}">Reserve</a>
+    </p>
+
+{% endblock %}

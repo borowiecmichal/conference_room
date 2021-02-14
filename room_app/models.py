@@ -12,3 +12,4 @@ class Reservation(models.Model):
 
     class Meta:
         unique_together = ('date', 'room',)
+        ordering = ['date']
