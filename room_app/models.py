@@ -5,3 +5,9 @@ class Room(models.Model):
     capacity = models.IntegerField()
     projector_availability = models.BooleanField()
 
+class Reservation(models.Model):
+    date = models.DateField()
+    room = models.ForeignKey(Room, on_delete=models.CASCADE)
+
+    class Meta:
+        unique_together = ('field1', 'field2',)
