@@ -1,9 +1,10 @@
 {% extends 'confeence_room.html' %}
 {% block content %}
+    {{ error }}
     <form method="post">
     {% csrf_token %}
         <p>Name: <input type="text" name="name" value="{{ room.name }}"></p>
-        <p>Capacity: <input type="text" name="capacity" value="{{ room.capacity }}"></p>
+        <p>Capacity: <input type="number" name="capacity" value="{{ room.capacity }}"></p>
         <p>Projector: <input type="checkbox" name="projector" value="available" {% if room.projector_availability %}checked{% endif %}></p>
         <p>Name: <input type="submit"></p>
     </form>

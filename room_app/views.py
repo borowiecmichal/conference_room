@@ -63,7 +63,40 @@ class RoomDelete(View):
 class RoomModify(View):
     def get(self, request, id):
         room = Room.objects.get(pk=id)
-        return render(request, 'editRoom.html', {'room':room})
+        return render(request, 'editRoom.html', {'room': room})
+
+    def post(self, request, id):
+        room = Room.objects.get(pk=id)
+
+        try:
+            room_by_name = Room.objects.get(name=request.POST['name'])
+            if room_by_name.id == room.id:
+                name_availability=True
+            else:
+                name_availability = False
+        except room_app.models.Room.DoesNotExist:
+            name_availability = True
+
+        if request.POST['name'] and name_availability:
+            try:
+                capacity = int(request.POST['capacity'])
+                if capacity >= 0:
+                    room.name = request.POST['name']
+                    room.capacity = request.POST['capacity']
+                    proj = request.POST.get('projector', None)
+                    if proj == 'available':
+                        room.projector_availability = True
+                    else:
+                        room.projector_availability = False
+                    room.save()
+                else:
+                    return render(request, 'editRoom.html', {'room': room, 'error': 'Wrong input data'})
+            except ValueError:
+                return render(request, 'editRoom.html', {'room': room, 'error': 'Wrong input data'})
+        else:
+            return render(request, 'editRoom.html', {'room': room, 'error': 'Wrong room name, try again'})
+
+        return redirect('Rooms')
 
 
 class RoomDetails(View):
