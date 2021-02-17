@@ -20,12 +20,7 @@
                 {% endif %}
             </td>
             <td style="text-align:center">
-                <!--{% if date_today in room.reservation_set.all.date %}-->
-                {% if date_today in room.reservation_set.values__==date %}
-                ✗
-                {% else %}
-                ✓
-                {% endif %}
+                {{room.status}}
             </td>
             <td style="text-align:center">
                 <a href="{% url 'RoomModify' room.id %}">Modify</a>

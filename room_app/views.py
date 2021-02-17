@@ -113,7 +113,7 @@ class RoomReserve(View):
         date = request.POST['date']
         datetime_object = datetime.strptime(date, '%Y-%m-%d').date()
         # a=list(room.reservation_set.all())
-        a=[]
+        a = []
         for elem in room.reservation_set.all():
             a.append(elem.date)
 
@@ -128,4 +128,4 @@ class RoomReserve(View):
 class RoomDetails(View):
     def get(self, request, id):
         room = Room.objects.get(pk=id)
-        return render(request, 'roomDetails.html', {'room':room})
+        return render(request, 'roomDetails.html', {'room': room})
